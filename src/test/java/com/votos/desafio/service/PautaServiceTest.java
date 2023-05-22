@@ -3,6 +3,7 @@ package com.votos.desafio.service;
 import com.votos.desafio.domain.mobile.pauta.ResultadoPautaMobile;
 import com.votos.desafio.domain.pautaEntity.Pauta;
 import com.votos.desafio.domain.votoEntity.Voto;
+import com.votos.desafio.exception.IdObrigatorioException;
 import com.votos.desafio.exception.PautaNaoEncontradaException;
 import com.votos.desafio.exception.VotoRepetidoException;
 import com.votos.desafio.repository.PautaRepository;
@@ -45,7 +46,7 @@ class PautaServiceTest {
     }
 
     @Test
-    public void votarSimTest() throws VotoRepetidoException {
+    public void votarSimTest() throws VotoRepetidoException, IdObrigatorioException {
         Voto voto = pautaService.votarSim(123L);
         Assertions.assertEquals("SIM", voto.getValor());
     }
@@ -57,7 +58,7 @@ class PautaServiceTest {
     }
 
     @Test
-    public void votarNaoTest() throws VotoRepetidoException {
+    public void votarNaoTest() throws VotoRepetidoException, IdObrigatorioException {
         Voto voto = pautaService.votarNao(123L);
         Assertions.assertEquals("NAO", voto.getValor());
     }

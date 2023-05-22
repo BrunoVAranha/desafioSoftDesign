@@ -1,5 +1,7 @@
 package com.votos.desafio.exception.handler;
 
+import com.votos.desafio.exception.IdObrigatorioException;
+import com.votos.desafio.exception.PautaFechadaException;
 import com.votos.desafio.exception.PautaNaoEncontradaException;
 import com.votos.desafio.exception.VotoRepetidoException;
 import org.springframework.http.HttpStatus;
@@ -23,10 +25,27 @@ public class ApplicationExceptionHandler {
         return errorMap;
     }
 
-
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(PautaNaoEncontradaException.class)
     public Map<String, String> handlePautaNaoEncontrada(PautaNaoEncontradaException ex) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("tipoCampo: ", "erro");
+        errorMap.put("mensagemErro: ", ex.getMessage());
+        return errorMap;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IdObrigatorioException.class)
+    public Map<String, String> handleIdNaoFornecido(IdObrigatorioException ex) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("tipoCampo: ", "erro");
+        errorMap.put("mensagemErro: ", ex.getMessage());
+        return errorMap;
+    }
+
+    @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
+    @ExceptionHandler(PautaFechadaException.class)
+    public Map<String, String> handlePautaFechada(PautaFechadaException ex) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("tipoCampo: ", "erro");
         errorMap.put("mensagemErro: ", ex.getMessage());

@@ -4,12 +4,14 @@ import com.votos.desafio.domain.pautaEntity.Pauta;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.lang.NonNull;
 
 @Entity
 @Getter
 @Setter
 public class Voto {
     @Id
+    @NonNull
     private Long idVoto;
 
     @ManyToOne

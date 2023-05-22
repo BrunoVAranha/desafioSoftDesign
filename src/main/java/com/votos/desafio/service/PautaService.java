@@ -3,16 +3,19 @@ package com.votos.desafio.service;
 import com.votos.desafio.domain.mobile.pauta.ResultadoPautaMobile;
 import com.votos.desafio.domain.pautaEntity.Pauta;
 import com.votos.desafio.domain.votoEntity.Voto;
+import com.votos.desafio.exception.IdObrigatorioException;
 import com.votos.desafio.exception.PautaNaoEncontradaException;
 import com.votos.desafio.exception.VotoRepetidoException;
 import com.votos.desafio.repository.PautaRepository;
 import com.votos.desafio.repository.VotoRepository;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
+@NoArgsConstructor
 public class PautaService {
 
     Pauta novaPauta;
@@ -29,10 +32,12 @@ public class PautaService {
         return novaPauta;
     }
 
-    public Voto votarSim(Long idVoto) throws VotoRepetidoException {
+    public Voto votarSim(Long idVoto) throws VotoRepetidoException, IdObrigatorioException {
         Voto voto = new Voto();
         //verificar se o id já votou nesta pauta
         if(votoRepository.findByIdAndPauta(idVoto, novaPauta.getIdPauta()) == null){
+            if(idVoto == null)
+                throw new IdObrigatorioException("É obrigatório fornecer um ID para votar.");
             voto.setIdVoto(idVoto);
             voto.setPauta(novaPauta);
             voto.setValor("SIM");
@@ -45,15 +50,17 @@ public class PautaService {
         }
     }
 
-    public Voto votarNao(Long idVoto) throws VotoRepetidoException {
+    public Voto votarNao(Long idVoto) throws VotoRepetidoException, IdObrigatorioException {
         Voto voto = new Voto();
         //verificar se o id já votou nesta pauta
         if(votoRepository.findByIdAndPauta(idVoto, novaPauta.getIdPauta()) == null){
+            if(idVoto == null)
+                throw new IdObrigatorioException("É obrigatório fornecer um ID para votar.");
             voto.setIdVoto(idVoto);
             voto.setPauta(novaPauta);
             voto.setValor("NAO");
             votoRepository.save(voto);
-            novaPauta.setVotosSim(novaPauta.getVotosNao() + 1);
+            novaPauta.setVotosNao(novaPauta.getVotosNao() + 1);
             return voto;
         }
         else{

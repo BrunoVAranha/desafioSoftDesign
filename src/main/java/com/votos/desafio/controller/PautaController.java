@@ -5,10 +5,13 @@ import com.votos.desafio.domain.mobile.pauta.ResultadoPautaMobile;
 import com.votos.desafio.domain.mobile.pauta.VotoMobile;
 import com.votos.desafio.domain.pautaEntity.Pauta;
 import com.votos.desafio.domain.votoEntity.Voto;
+import com.votos.desafio.exception.IdObrigatorioException;
+import com.votos.desafio.exception.PautaFechadaException;
 import com.votos.desafio.exception.PautaNaoEncontradaException;
 import com.votos.desafio.exception.VotoRepetidoException;
 import com.votos.desafio.service.PautaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.Executors;
@@ -25,38 +28,35 @@ public class PautaController {
 
     //endpoint para iniciar a pauta e começar a contagem de tempo
     @PostMapping("/iniciarPauta")
-    public PautaMobile iniciarPauta() {
+    public ResponseEntity<PautaMobile> iniciarPauta() throws PautaFechadaException {
         Pauta novaPauta = pautaService.iniciarPauta();
         iniciarTimer(novaPauta);
-        return new PautaMobile();
+        return ResponseEntity.ok(new PautaMobile());
     }
 
     @PostMapping("/votarSim")
-    public VotoMobile votarSim(@RequestBody Voto voto) throws VotoRepetidoException {
+    public ResponseEntity<VotoMobile> votarSim(@RequestBody Voto voto) throws VotoRepetidoException, IdObrigatorioException, PautaFechadaException {
         if (pautaAberta) {
             pautaService.votarSim(voto.getIdVoto());
-            return new VotoMobile(pautaAberta);
-        } else {
-            return new VotoMobile(pautaAberta);
+            return ResponseEntity.ok(new VotoMobile(pautaAberta));
         }
+        throw new PautaFechadaException("Nehuma pauta aberta no momento.");
     }
 
     @PostMapping("/votarNao")
-    public VotoMobile votarNao(@RequestBody Voto voto) throws VotoRepetidoException {
-        if (pautaAberta) {
+    public ResponseEntity<VotoMobile> votarNao(@RequestBody Voto voto) throws VotoRepetidoException, IdObrigatorioException, PautaFechadaException {
+        if(pautaAberta) {
             pautaService.votarNao(voto.getIdVoto());
-            return new VotoMobile(pautaAberta);
-        } else {
-            return new VotoMobile(pautaAberta);
+            return ResponseEntity.ok(new VotoMobile(pautaAberta));
         }
+        throw new PautaFechadaException("Nehuma pauta aberta no momento.");
     }
-
 
 
     //obter o resultado de uma puta
     @GetMapping("/resultadoPauta/{idPauta}")
-    public ResultadoPautaMobile resultadoPauta(@PathVariable Long idPauta) throws PautaNaoEncontradaException {
-        return pautaService.obterResultadoPorId(idPauta);
+    public ResponseEntity<ResultadoPautaMobile> resultadoPauta(@PathVariable Long idPauta) throws PautaNaoEncontradaException {
+        return ResponseEntity.ok(pautaService.obterResultadoPorId(idPauta));
     }
 
     private void iniciarTimer(Pauta novaPauta) {
