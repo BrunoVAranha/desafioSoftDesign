@@ -23,7 +23,7 @@ public class PautaController {
     //flag que indica se a pauta está aberta ou não
     private boolean pautaAberta = false;
 
-    //endpoint para iniciar a pauta, começar a contagem de tempo, e obter o id da pauta
+    //endpoint para iniciar a pauta e começar a contagem de tempo
     @PostMapping("/iniciarPauta")
     public PautaMobile iniciarPauta() {
         Pauta novaPauta = pautaService.iniciarPauta();
@@ -65,7 +65,7 @@ public class PautaController {
         pautaAberta = true;
 
         //Escolher o tempo de vida da thread
-        long duration = 8;
+        long duration = 60;
 
         //fechar a pauta após o tempo ser atingido.
         timerExecutorService.schedule(() -> {

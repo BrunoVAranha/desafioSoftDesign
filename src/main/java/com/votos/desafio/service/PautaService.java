@@ -47,6 +47,7 @@ public class PautaService {
 
     public Voto votarNao(Long idVoto) throws VotoRepetidoException {
         Voto voto = new Voto();
+        //verificar se o id já votou nesta pauta
         if(votoRepository.findByIdAndPauta(idVoto, novaPauta.getIdPauta()) == null){
             voto.setIdVoto(idVoto);
             voto.setPauta(novaPauta);
@@ -65,6 +66,7 @@ public class PautaService {
         pautaRepository.save(novaPauta);
     }
 
+    //obtém uma pauta por id, e formata para a estrutura mobile
     public ResultadoPautaMobile obterResultadoPorId(Long idPauta) throws PautaNaoEncontradaException {
         try {
             Pauta pauta = pautaRepository.getReferenceById(idPauta);
