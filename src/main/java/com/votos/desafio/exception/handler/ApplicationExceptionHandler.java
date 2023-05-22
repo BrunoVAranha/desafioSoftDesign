@@ -1,5 +1,6 @@
 package com.votos.desafio.exception.handler;
 
+import com.votos.desafio.exception.PautaNaoEncontradaException;
 import com.votos.desafio.exception.VotoRepetidoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,7 +16,17 @@ import java.util.Map;
 public class ApplicationExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(VotoRepetidoException.class)
-    public Map<String, String> handleBusinessException(VotoRepetidoException ex) {
+    public Map<String, String> handleVotoRepetido(VotoRepetidoException ex) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("tipoCampo: ", "erro");
+        errorMap.put("mensagemErro: ", ex.getMessage());
+        return errorMap;
+    }
+
+
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(PautaNaoEncontradaException.class)
+    public Map<String, String> handlePautaNaoEncontrada(PautaNaoEncontradaException ex) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("tipoCampo: ", "erro");
         errorMap.put("mensagemErro: ", ex.getMessage());

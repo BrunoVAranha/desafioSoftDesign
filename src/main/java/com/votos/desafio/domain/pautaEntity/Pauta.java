@@ -1,4 +1,4 @@
-package com.votos.desafio.domain;
+package com.votos.desafio.domain.pautaEntity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,12 +8,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 public class Pauta {
 
-    public Pauta(){
+    public Pauta() {
         this.votosNao = 0L;
         this.votosSim = 0L;
     }
@@ -23,4 +23,5 @@ public class Pauta {
     private Long idPauta;
     private Long votosSim;
     private Long votosNao;
+    private String resultado;
 }
