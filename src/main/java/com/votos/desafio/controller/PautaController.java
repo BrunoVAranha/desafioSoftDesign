@@ -53,7 +53,7 @@ public class PautaController {
 
 
 
-    //obter o resultado de uma pauta
+    //obter o resultado de uma puta
     @GetMapping("/resultadoPauta/{idPauta}")
     public ResultadoPautaMobile resultadoPauta(@PathVariable Long idPauta) throws PautaNaoEncontradaException {
         return pautaService.obterResultadoPorId(idPauta);
