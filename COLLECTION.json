@@ -1,0 +1,85 @@
+{
+	"info": {
+		"_postman_id": "39c74a5f-abda-4e99-a507-82ea6201f661",
+		"name": "Desafio",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "votarSim",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/votarSim",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"votarSim"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "votarNao",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/votarNao",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"votarNao"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "iniciar pauta",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/iniciarPauta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"iniciarPauta"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "resultado pauta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/resultadoPauta",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"resultadoPauta"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
