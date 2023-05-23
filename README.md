@@ -8,7 +8,7 @@ Usar a o Postman com a collection disponibilizada nas RELEASES deste repositóri
 ## Iniciando a aplicação:
 Após clonar o repositório, vá até a pasta onde se encontra o arquivo 'docker-compose.yml' e use o comando `docker-compose up mysqldb` no terminal para iniciar o container do banco de dados.
 
-Em outro terminal, na mesma pasta, use o comando `docker-compose up desafioApp`para iniciar o container da aplicação.
+Espere o banco de dados estar inicializado, e em outro terminal, na mesma pasta, use o comando `docker-compose up desafioApp`para iniciar o container da aplicação.
 Feito isso, a aplicação estará pronta para receber as requisições nos seus endpoints.
 ### Obs:
 É possível utilizar o comando `docker-compose up` para inicializar os dois containers de uma vez, mas não é garantido que o banco de dados vai inicializar completamente antes da aplicação, impedindo que a aplicação inicie corretamente. Tentei diversas configurações, mas nenhuma funcionou 100% das vezes.
