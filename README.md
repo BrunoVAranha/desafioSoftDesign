@@ -3,7 +3,7 @@
 * Java 17
 * Docker
 ### Recomendação:
-Usar a o Postman com a collection disponibilizada neste repositório
+Usar a o Postman com a collection disponibilizada nas RELEASES deste repositório.
 
 ## Iniciando a aplicação:
 Após clonar o repositório, vá até a pasta onde se encontra o arquivo 'docker-compose.yml' e use o comando `docker-compose up mysqldb` no terminal para iniciar o container do banco de dados.
