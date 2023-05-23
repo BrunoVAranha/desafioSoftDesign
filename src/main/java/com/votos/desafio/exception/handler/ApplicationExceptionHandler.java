@@ -1,9 +1,6 @@
 package com.votos.desafio.exception.handler;
 
-import com.votos.desafio.exception.IdObrigatorioException;
-import com.votos.desafio.exception.PautaFechadaException;
-import com.votos.desafio.exception.PautaNaoEncontradaException;
-import com.votos.desafio.exception.VotoRepetidoException;
+import com.votos.desafio.exception.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -46,6 +43,15 @@ public class ApplicationExceptionHandler {
     @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
     @ExceptionHandler(PautaFechadaException.class)
     public Map<String, String> handlePautaFechada(PautaFechadaException ex) {
+        Map<String, String> errorMap = new HashMap<>();
+        errorMap.put("tipoCampo: ", "erro");
+        errorMap.put("mensagemErro: ", ex.getMessage());
+        return errorMap;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(PautaAbertaException.class)
+    public Map<String, String> handlePautaFechada(PautaAbertaException ex) {
         Map<String, String> errorMap = new HashMap<>();
         errorMap.put("tipoCampo: ", "erro");
         errorMap.put("mensagemErro: ", ex.getMessage());

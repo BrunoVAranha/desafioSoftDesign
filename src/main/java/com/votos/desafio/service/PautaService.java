@@ -71,6 +71,7 @@ public class PautaService {
     public void finalizarPauta(Pauta novaPauta) {
         novaPauta.setResultado(calcularResultado(novaPauta));
         pautaRepository.save(novaPauta);
+        novaPauta = new Pauta();
     }
 
     //obtém uma pauta por id, e formata para a estrutura mobile

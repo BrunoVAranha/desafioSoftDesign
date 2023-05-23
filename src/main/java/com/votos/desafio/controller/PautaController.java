@@ -5,10 +5,7 @@ import com.votos.desafio.domain.mobile.pauta.ResultadoPautaMobile;
 import com.votos.desafio.domain.mobile.pauta.VotoMobile;
 import com.votos.desafio.domain.pautaEntity.Pauta;
 import com.votos.desafio.domain.votoEntity.Voto;
-import com.votos.desafio.exception.IdObrigatorioException;
-import com.votos.desafio.exception.PautaFechadaException;
-import com.votos.desafio.exception.PautaNaoEncontradaException;
-import com.votos.desafio.exception.VotoRepetidoException;
+import com.votos.desafio.exception.*;
 import com.votos.desafio.service.PautaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +25,9 @@ public class PautaController {
 
     //endpoint para iniciar a pauta e começar a contagem de tempo
     @PostMapping("/iniciarPauta")
-    public ResponseEntity<PautaMobile> iniciarPauta() throws PautaFechadaException {
+    public ResponseEntity<PautaMobile> iniciarPauta() throws PautaAbertaException {
+        if(pautaAberta)
+            throw new PautaAbertaException();
         Pauta novaPauta = pautaService.iniciarPauta();
         iniciarTimer(novaPauta);
         return ResponseEntity.ok(new PautaMobile());
