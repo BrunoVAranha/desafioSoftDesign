@@ -1,13 +1,29 @@
-version: '3.1'
+version: "3.6"
 services:
-  db:
+  mysqldb:
     image: mysql
-    container_name: mysqldb
+    networks:
+      - desafio-network
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=desafiodb
+    healthcheck:
+      test: "/usr/bin/mysql --user=root --password=root --execute \"SHOW DATABASES;\""
+      interval: 2s
+      timeout: 20s
+      retries: 10
+  desafioApp:
+    image: brunovaranha2/desafio-tecnico
     ports:
-      - "3306:3306"
-    volumes:
-      - desafio:/var/lib/mysql
-volumes:
-  desafio:
+      - "8080:8080"
+    networks:
+      - desafio-network
+    depends_on:
+      mysqldb:
+        condition: service_healthy
+
+
+
+
+networks:
+  desafio-network:
